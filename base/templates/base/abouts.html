@@ -1,11 +1,11 @@
 {% extends "main.html" %}
-{% block title %}ABOUT{% endblock title %}
+{% block title %}ABOUTS{% endblock title %}
 {% block content %}
 <div>
     <h1>Programmers</h1>
     {% for programmer in programmers %}
     <div>
-        <h2>{{ programmer.id }} -- {{ programmer.name }} -- {{ programmer.description }}</h2>
+        <h2>{{ programmer.id }} -- <a href="{% url 'about' programmer.id %}">{{ programmer.name }}</a> -- {{ programmer.description }}</h2>
     </div>
     {% endfor %}
 </div>

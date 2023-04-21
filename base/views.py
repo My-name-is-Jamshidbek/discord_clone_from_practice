@@ -9,7 +9,13 @@ programmers = [
 ]
 
 def home(request):
-    return render(request, "home.html")
+    return render(request, "base/home.html")
 
-def about(request):
-    return render(request, "about.html", {'programmers': programmers})
+def abouts(request):
+    context = {'programmers': programmers}
+    return render(request, "base/abouts.html", context)
+
+def about(request, pk):
+    programmer = next(filter(lambda i: i['id'] == pk, programmers), None)
+    context = {'programmer': programmer}
+    return render(request, "base/about.html", context)

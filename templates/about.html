@@ -1,2 +1,12 @@
-{% include 'navbar.html' %}
-<h1>This is about page</h1>
+{% extends "main.html" %}
+{% block title %}ABOUT{% endblock title %}
+{% block content %}
+<div>
+    <h1>Programmers</h1>
+    {% for programmer in programmers %}
+    <div>
+        <h2>{{ programmer.id }} -- {{ programmer.name }} -- {{ programmer.description }}</h2>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

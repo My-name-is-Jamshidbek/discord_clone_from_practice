@@ -10,6 +10,7 @@
             <span>@{{room.host.username}}</span>
             <h2>{{ room.id }} -- <a href="{% url 'room' room.id %}">{{ room.name }}</a> -- {{ room.description }}</h2>
             <a href="{% url 'update-room' room.id %}">Update room</a> 
+            <a href="{% url 'delete-room' room.id %}">Delete room</a> 
             <small>{{room.topic.name}}</small>
             <hr>
         </div>

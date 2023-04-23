@@ -1,8 +1,33 @@
+from django.contrib.auth.models import User
+from django.contrib.auth import login as auth_login, authenticate as auth_authenticate
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.db.models import Q
 from .models import Room, Topic
 from .forms import RoomForm
 # Create your views here.
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request,"User does not exist")
+        user = auth_authenticate(request = request, username = username, password = password)
+
+        if user is not None:
+            auth_login(request, user)
+            return redirect('hoom')
+        else:
+            messages.error(request,"Username or password is incorrect")
+        
+            
+            
+    context = {}
+    return render(request, 'base/login_registration.html', context)
 
 
 def home(request):
@@ -11,7 +36,8 @@ def home(request):
                                        Q(name__icontains = q) |
                                        Q(description__icontains = q))
     topics_data = Topic.objects.all()
-    context = {'rooms': rooms_data, 'topics': topics_data}
+    rooms_count = rooms_data.count()
+    context = {'rooms': rooms_data, 'topics': topics_data, "rooms_count": rooms_count}
     
     return render(request, "base/home.html", context)
 

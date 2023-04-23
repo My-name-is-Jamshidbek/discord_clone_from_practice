@@ -8,6 +8,10 @@
 </head>
 <body>
     {% include 'navbar.html' %}
+    <form action="{% url 'home' %}" method="GET">
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Search rooms...">
+    </form>
     <hr>
     {% block content %}
     {% endblock content %}

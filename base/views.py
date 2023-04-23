@@ -1,11 +1,17 @@
 from django.contrib.auth.models import User
-from django.contrib.auth import login as auth_login, authenticate as auth_authenticate
+from django.contrib.auth import login as auth_login, authenticate as auth_authenticate, logout as auth_logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Q
 from .models import Room, Topic
 from .forms import RoomForm
 # Create your views here.
+
+
+def logout(request):
+    auth_logout(request)
+    return redirect('home')
+
 
 def login(request):
     if request.method == 'POST':
@@ -20,7 +26,7 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            return redirect('hoom')
+            return redirect('home')
         else:
             messages.error(request,"Username or password is incorrect")
         

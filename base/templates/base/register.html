@@ -5,13 +5,9 @@ LOGIN
 {% block content %}
 <form action="" method = "POST">
     {% csrf_token %}
-   
-    <label>Username:</label>
-    <input type="text" name="username" placeholder="Enter username">
-   
-    <label>Password:</label>
-    <input type="password" name="password" placeholder="Enter password">
-   
+
+    {{form.as_p}}
+
     {% if messages %}
         <ul>
             {% for message in messages %}
@@ -23,7 +19,7 @@ LOGIN
     {% endif %}
 
     <input type="submit" value="Login">
-    <a href="{% url 'register' %}">Are not you already signed up?</a>
-
+    
+    <a href="{% url 'login' %}">Are you already signed up?</a>
 </form>
 {% endblock content %}

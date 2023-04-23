@@ -1,5 +1,6 @@
 from django.contrib.auth import login as auth_login, authenticate as auth_authenticate, logout as auth_logout
 from django.contrib.auth.decorators import login_required   
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -17,7 +18,7 @@ def logout(request):
 
 def login(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get('password')
         
         try:
@@ -36,6 +37,23 @@ def login(request):
             
     context = {}
     return render(request, 'base/login_registration.html', context)
+
+
+def register(request):
+    
+    form = UserCreationForm()
+    
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            return redirect('home')
+        
+    context = {'form': form}
+    
+    return render(request, 'base/register.html', context)
 
 
 def home(request):

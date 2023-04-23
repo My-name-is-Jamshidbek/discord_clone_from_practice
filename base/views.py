@@ -78,7 +78,8 @@ def rooms(request):
 
 def room(request, pk):
     room_data = Room.objects.get(id=pk)
-    context = {'room': room_data}
+    messages_data = Room.messages_set.all()
+    context = {'room': room_data, 'messages': messages_data}
             
     return render(request, "base/room.html", context)
 

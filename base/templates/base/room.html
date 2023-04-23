@@ -11,6 +11,10 @@
     <h3>{{ room.description }}</h3>
     <hr>
     <h2>Conversation</h2>
-
+    {% for message in messages_data %}
+    <div>
+        <small>@{{message.user}} {{message.created}}</small>
+    </div>
+    {% endfor %}
 </div>
 {% endblock content %}

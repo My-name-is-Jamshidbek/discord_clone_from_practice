@@ -22,6 +22,7 @@
 {% if user.is_authenticated %}
 <div class="message-form">
     <form action="" method="POST">
+        {% csrf_token %}
         <input type="text" name="body" placeholder="Write ypu message here..."/>
     </form>
 </div>

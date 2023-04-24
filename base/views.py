@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib import messages
 from django.db.models import Q
-from .models import Room, Topic
+from .models import Room, Topic, Message
 from .forms import RoomForm
 # Create your views here.
 
@@ -78,8 +78,9 @@ def rooms(request):
 
 def room(request, pk):
     room_data = Room.objects.get(id=pk)
-    messages_data = Room.messages_set.all()
-    context = {'room': room_data, 'messages': messages_data}
+    messages_data = Message.objects.filter(room__id = room_data.id)
+    print(messages_data[0].created)
+    context = {'room': room_data, 'messages_data': messages_data}
             
     return render(request, "base/room.html", context)
 

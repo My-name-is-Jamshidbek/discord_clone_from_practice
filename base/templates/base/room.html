@@ -13,7 +13,7 @@
     <h2>Conversation</h2>
     {% for message in messages_data %}
     <div>
-        <small>@{{message.user}} {{message.created}}</small>
+        <small>@{{message.user}} {{message.created|timesince}}</small>
     </div>
     {% endfor %}
 </div>

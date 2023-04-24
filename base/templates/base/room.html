@@ -20,6 +20,7 @@
             <h2>Conversation</h2>
             {% for message in messages_data %}
             <div>
+                <a href="{{ url 'delete-message'}}">DELETE</a>
                 <small>@{{message.user}} {{message.created|timesince}} ago</small>
                 <p>{{message.body}}</p>
             </div>

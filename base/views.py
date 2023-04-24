@@ -79,7 +79,15 @@ def rooms(request):
 def room(request, pk):
     room_data = Room.objects.get(id=pk)
     messages_data = Message.objects.filter(room__id = room_data.id)
-    print(messages_data[0].created)
+
+    if request.method == 'POST':
+        message = Message.objects.create(
+            user=request.user,
+            room=room_data,
+            body=request.POST.get('body')
+            )
+        return redirect('room', pk=room_data.id) 
+       
     context = {'room': room_data, 'messages_data': messages_data}
             
     return render(request, "base/room.html", context)

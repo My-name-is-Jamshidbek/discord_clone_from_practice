@@ -98,6 +98,12 @@ def room(request, pk):
     return render(request, "base/room.html", context)
 
 
+def user_profile(request, pk):
+    user = User.objects.get(id=pk)
+    context = {'user': user}
+    
+    return render(request, 'base/user_profile.html', context)
+
 @login_required(login_url='login')
 def create_room(request):
     form = RoomForm

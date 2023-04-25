@@ -100,7 +100,11 @@ def room(request, pk):
 
 def user_profile(request, pk):
     user = User.objects.get(id=pk)
-    context = {'user': user}
+    rooms = Room.objects.filter(participants = user)
+    messages_data = Message.objects.filter(user = user)
+    topics = Topic.objects.all()
+    
+    context = {'user': user, 'rooms': rooms, 'messages_data': messages_data, 'topics': topics}
     
     return render(request, 'base/user_profile.html', context)
 

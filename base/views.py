@@ -49,7 +49,7 @@ def register(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
-            login(request, user)
+            login(request)
             return redirect('home')
         
     context = {'form': form}
